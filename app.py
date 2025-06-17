@@ -46,8 +46,19 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["200 per day", "50 per hour"]
 )
+
+
+# Add security headers middleware
+@app.after_request
+def add_security_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    return response
 @app.route("/api/code/python/generate", methods=['POST'])
 @limiter.limit("10 per minute")
+# @require_auth # Uncomment this line if you need authentication
 def gen_code():
     try:
         formatter = HtmlFormatter(style=THEME)
