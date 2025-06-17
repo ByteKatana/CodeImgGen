@@ -56,6 +56,22 @@ def add_security_headers(response):
     response.headers['X-XSS-Protection'] = '1; mode=block'
     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
     return response
+
+'''
+# Authentication
+def require_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        # Add your authentication logic here
+        # For example, checking for a valid token
+        # auth_header = request.headers.get('Authorization')
+        # if not auth_header or not is_valid_token(auth_header):
+        #     return jsonify({"error": "Unauthorized"}), 401
+        return f(*args, **kwargs)
+    return decorated
+
+'''
+
 @app.route("/api/code/python/generate", methods=['POST'])
 @limiter.limit("10 per minute")
 # @require_auth # Uncomment this line if you need authentication
