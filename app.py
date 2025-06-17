@@ -9,8 +9,8 @@ import os
 
 app = Flask(__name__)
 
-@app.route("/")
 # Get environment-specific configuration
+ENVIRONMENT = os.getenv('FLASK_ENV', 'development')
 ALLOWED_ORIGINS = {
     'development': [
         'http://localhost:5173',
