@@ -21,6 +21,20 @@ ALLOWED_ORIGINS = {
     ]
 }
 
+# CORS configuration based on environment
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ALLOWED_ORIGINS.get(ENVIRONMENT, []),
+        "methods": ["POST", "OPTIONS"],
+        "allow_headers": [
+            "Content-Type",
+            "Authorization",  # for token-based auth.
+        ],
+        "max_age": 3600,
+        # Only enable credentials if you need authentication
+        #"supports_credentials": ENVIRONMENT == 'production'
+    }
+})
 @app.route("/api/code/python/generate", methods=['POST'])
 def gen_code():
     try:
