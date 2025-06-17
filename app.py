@@ -5,18 +5,24 @@ from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import Python3Lexer
 from config import CODE, THEME
+import os
+
 app = Flask(__name__)
 
 @app.route("/")
+# Get environment-specific configuration
+ALLOWED_ORIGINS = {
+    'development': [
+        'http://localhost:5173',
+        'http://127.0.0.1:5173'
+    ],
+    'production': [
+        'https://your-production-domain.com'
+    ]
+}
+
 @app.route("/api/code/python/generate", methods=['POST'])
 def gen_code():
-    formatter = HtmlFormatter(style=THEME)
-    context= {
-        "code": highlight(CODE, Python3Lexer(), formatter),
-        "style_definitions": formatter.get_style_defs(),
-        "style_bg_color": formatter.style.background_color,
-    }
-    return render_template("base.html", **context)
     try:
         formatter = HtmlFormatter(style=THEME)
         # Get code from request if provided, otherwise use default CODE
