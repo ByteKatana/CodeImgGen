@@ -1,3 +1,5 @@
+"use client"
+
 import { type InitialConfigType, LexicalComposer } from "@lexical/react/LexicalComposer"
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin"
 import type { EditorState, SerializedEditorState } from "lexical"
@@ -29,7 +31,7 @@ export function Editor({
   onSerializedChange?: (editorSerializedState: SerializedEditorState) => void
 }) {
   return (
-    <div className="bg-background overflow-hidden rounded-lg border shadow outline-2 outline-neutral-300 hover:outline-rose-600 transition-colors duration-500 ease-in-out">
+    <div className="bg-background overflow-hidden rounded-lg border shadow">
       <LexicalComposer
         initialConfig={{
           ...editorConfig,
