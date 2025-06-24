@@ -1,9 +1,4 @@
-import { HeadingNode, QuoteNode } from "@lexical/rich-text"
-import { type Klass, type LexicalNode, type LexicalNodeReplacement, ParagraphNode, TextNode } from "lexical"
+import { TextNode } from "lexical"
+import { CodeHighlightNode, CodeNode } from "@lexical/code"
 
-export const nodes: ReadonlyArray<Klass<LexicalNode> | LexicalNodeReplacement> = [
-  HeadingNode,
-  ParagraphNode,
-  TextNode,
-  QuoteNode
-]
+export const nodes: ReadonlyArray<any> = [TextNode, CodeNode, CodeHighlightNode]
