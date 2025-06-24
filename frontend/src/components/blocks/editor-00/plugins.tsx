@@ -1,25 +1,24 @@
 import { useState } from "react"
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary"
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
+import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin"
 import { ClearEditorPlugin } from "@lexical/react/LexicalClearEditorPlugin"
-import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin"
 import { ContentEditable } from "@/components/editor/editor-ui/content-editable"
 import { ActionsPlugin } from "@/components/editor/plugins/actions/actions-plugin"
 import { ClearEditorActionPlugin } from "@/components/editor/plugins/actions/clear-editor-plugin"
 import { ToolbarPlugin } from "@/components/editor/plugins/toolbar/toolbar-plugin"
-import { FontSizeToolbarPlugin } from "@/components/editor/plugins/toolbar/font-size-toolbar-plugin"
-import { HistoryToolbarPlugin } from "@/components/editor/plugins/toolbar/history-toolbar-plugin"
 import { CounterCharacterPlugin } from "@/components/editor/plugins/actions/counter-character-plugin"
 import { EditModeTogglePlugin } from "@/components/editor/plugins/actions/edit-mode-toggle-plugin"
 import { ImportExportPlugin } from "@/components/editor/plugins/actions/import-export-plugin"
-import { FontFamilyToolbarPlugin } from "@/components/editor/plugins/toolbar/font-family-toolbar-plugin.tsx"
-import { ProgrammingLangPlugin } from "@/components/editor/plugins/toolbar/programming-lang-plugin.tsx"
-import { EditorThemePlugin } from "@/components/editor/plugins/toolbar/editor-theme-plugin.tsx"
+//import { FontFamilyToolbarPlugin } from "@/components/editor/plugins/toolbar/font-family-toolbar-plugin"
+import { EditorThemePlugin } from "@/components/editor/plugins/toolbar/editor-theme-plugin"
 import { Button } from "@/components/ui/button"
 import { BiImageAdd } from "react-icons/bi"
-
+import { CodeActionMenuPlugin } from "@/components/editor/plugins/code-action-menu-plugin"
+import { CodeHighlightPlugin } from "@/components/editor/plugins/code-highlight-plugin"
+import { CodeLanguageToolbarPlugin } from "@/components/editor/plugins/toolbar/code-language-toolbar-plugin"
+import { ParagraphToCodePlugin } from "@/components/editor/plugins/paragraph-to-code-plugin.tsx"
 export function Plugins() {
-  const [_, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null)
+  const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null)
 
   const onRef = (_floatingAnchorElem: HTMLDivElement) => {
     if (_floatingAnchorElem !== null) {
@@ -30,17 +29,15 @@ export function Plugins() {
   return (
     <div className="relative">
       {/* toolbar plugins */}
-
+      <ParagraphToCodePlugin />
       <ToolbarPlugin>
-        {({ blockType }) => (
+        {() => (
           <div className="sticky top-0 z-10 flex flex-col overflow-auto border-b p-1">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between ">
               <div id="left-plugins" className="flex flex-row ">
-                <ProgrammingLangPlugin />
+                <CodeLanguageToolbarPlugin />
                 <EditorThemePlugin />
-                <FontFamilyToolbarPlugin />
-                <FontSizeToolbarPlugin />
-                <HistoryToolbarPlugin />
+                {/*<FontFamilyToolbarPlugin />*/}
               </div>
               <div id="right-plugins" className="flex flex-row justify-items-end">
                 <Button
@@ -56,18 +53,21 @@ export function Plugins() {
       </ToolbarPlugin>
 
       <div className="relative">
-        <RichTextPlugin
+        <PlainTextPlugin
           contentEditable={
             <div className="">
               <div className="" ref={onRef}>
-                <ContentEditable className="min-h-[56vh] min-w-[100vw] p-3" placeholder={"Start typing ..."} />
+                <ContentEditable
+                  placeholder={"Start typing..."}
+                  className="ContentEditable__root relative block h-72 min-h-full overflow-auto px-8 py-4 focus:outline-none"
+                />
               </div>
             </div>
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
-        {/* editor plugins */}
-        <HistoryPlugin />
+        <CodeActionMenuPlugin anchorElem={floatingAnchorElem} />
+        <CodeHighlightPlugin />
       </div>
       {/* actions plugins */}
       <ActionsPlugin>
