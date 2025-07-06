@@ -17,6 +17,9 @@ import { CodeActionMenuPlugin } from "@/components/editor/plugins/code-action-me
 import { CodeHighlightPlugin } from "@/components/editor/plugins/code-highlight-plugin"
 import { CodeLanguageToolbarPlugin } from "@/components/editor/plugins/toolbar/code-language-toolbar-plugin"
 import { ParagraphToCodePlugin } from "@/components/editor/plugins/paragraph-to-code-plugin.tsx"
+import type { CodeResponse } from "@/types.ts"
+import { EditorContextProvider } from "@/hooks/use-editor-context.tsx"
+import { GenerateButtonPlugin } from "@/components/editor/plugins/toolbar/generate-button-plugin.tsx"
 export function Plugins() {
   const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null)
 
@@ -40,12 +43,7 @@ export function Plugins() {
                 {/*<FontFamilyToolbarPlugin />*/}
               </div>
               <div id="right-plugins" className="flex flex-row justify-items-end">
-                <Button
-                  className="hover:bg-green-400 hover:text-neutral-50 dark:hover:bg-green-600 "
-                  variant="outline"
-                  size="sm">
-                  <BiImageAdd /> Generate
-                </Button>
+                <GenerateButtonPlugin />
               </div>
             </div>
           </div>
