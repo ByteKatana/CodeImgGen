@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from utils import take_screenshot
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import Python3Lexer
@@ -92,30 +91,6 @@ def gen_code():
             }
         }
         return jsonify(response), 200
-    except Exception as e:
-        return jsonify({
-            "success": False,
-            "error": str(e)
-        }), 500
-
-@app.route("/api/image/generate", methods=['POST'])
-def make_image():
-    try:
-        # Assuming take_screenshot now returns the path or URL of the generated image
-        image_url = take_screenshot(request.json.get('url')) if request.is_json else None
-
-        if not image_url:
-            return jsonify({
-                "success": False,
-                "error": "No URL provided or screenshot generation failed"
-            }), 400
-
-        return jsonify({
-            "success": True,
-            "data": {
-                "image_url": image_url
-            }
-        }), 200
     except Exception as e:
         return jsonify({
             "success": False,
