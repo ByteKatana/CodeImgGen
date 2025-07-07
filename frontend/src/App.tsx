@@ -16,7 +16,7 @@ function App() {
       <>
         <Navbar />
         <div id="container" className="flex min-h-screen items-center justify-center p-5">
-          <div className="flex flex-col w-full gap-4 bg-background rounded-md shadow-md dark:bg-background-dark">
+          <div className="flex flex-col md:w-[50%] lg:w-[w-[75%] gap-4 rounded-md ">
             <EditorContextProvider
               value={{ context, setContext, contextError, setContextError, isLoading, setIsLoading }}>
               {isLoading && <div className="flex justify-center">Loading...</div>}
