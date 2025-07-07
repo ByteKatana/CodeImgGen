@@ -1,6 +1,7 @@
 "use client"
 import { useRef } from "react"
 import { ModeToggle } from "@/components/mode-toggle.tsx"
+import { BiLogoGithub } from "react-icons/bi"
 
 function Navbar() {
   const mobileMenuRef = useRef({} as HTMLElement)
@@ -10,30 +11,22 @@ function Navbar() {
         <div id="content" className="flex flex-1 flex-row justify-between p-3 gap-24">
           <img src="vite.svg" alt="website logo" id="logo" />
           <ul className="hidden xl:flex flex-row w-full justify-start items-center gap-8 text-neutral-600 text-base font-medium">
-            <li className="p-0.5 hover:text-neutral-900 focus:border focus:bg-rose-50 rounded">
-              <a href="#">Home</a>
-            </li>
-            <li className="p-0.5 hover:text-neutral-900 focus:border focus:bg-rose-50 rounded">
-              <a href="#">Features</a>
-            </li>
-            <li className="p-0.5 hover:text-neutral-900 focus:border focus:bg-rose-50 rounded">
-              <a href="#">Pricing</a>
-            </li>
-            <li className="p-0.5 hover:text-neutral-900 focus:border focus:bg-rose-50 rounded">
-              <a href="#">About Us</a>
-            </li>
-            <li className="p-0.5 hover:text-neutral-900 focus:border focus:border-rose-50 rounded">
-              <a href="#">Contact</a>
+            <li className="p-0.5  hover:text-rose-800 dark:hover:text-rose-50 focus:border focus:bg-rose-50 rounded">
+              <a href="/">Home</a>
             </li>
           </ul>
-          <div id="buttons-left" className="flex flex-row min-w-fit gap-4">
+          <div id="buttons-left" className="flex flex-row min-w-fit gap-4 items-center">
             <ModeToggle />
-            <button className="hidden xl:flex px-4 py-2.5 bg-white hover:bg-zinc-50 text-neutral-900 drop-shadow rounded">
-              Learn More
-            </button>
-            <button className="hidden xl:flex px-4 py-2.5 bg-rose-700 hover:bg-rose-800 text-white drop-shadow rounded">
-              See Pricing
-            </button>
+            <a
+              href="https://github.com/ByteKatana/CodeImgGen"
+              className="href"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Github">
+              <button className="hidden xl:flex px-4 py-2.5 items-center gap-x-1 cursor-pointer bg-rose-700 hover:bg-rose-800 text-white drop-shadow rounded">
+                <BiLogoGithub size="24px" /> Github
+              </button>
+            </a>
             <button
               aria-label="Open mobile menu"
               id="mobile-menu-button"
