@@ -10,28 +10,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 const themes = [
   {
-    value: "monokai",
-    label: "Monokai"
-  },
-  {
-    value: "nordic-dark",
-    label: "Nordic Dark"
-  },
-  {
-    value: "nordic-light",
-    label: "Nordic Light"
-  },
-  {
     value: "dracula",
     label: "Dracula"
-  },
-  {
-    value: "gruvbox-dark",
-    label: "Gruvbox Dark"
-  },
-  {
-    value: "gruvbox-light",
-    label: "Gruvbox Light"
   }
 ]
 
