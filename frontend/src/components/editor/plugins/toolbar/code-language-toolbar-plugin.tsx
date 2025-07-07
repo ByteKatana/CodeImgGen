@@ -11,11 +11,11 @@ import { useUpdateToolbarHandler } from "@/components/editor/editor-hooks/use-up
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components//ui/select"
 
 function getCodeLanguageOptions(): [string, string][] {
-  const options: [string, string][] = []
+  const options: [string, string][] = [["python", "Python"]]
 
-  for (const [lang, friendlyName] of Object.entries(CODE_LANGUAGE_FRIENDLY_NAME_MAP)) {
+  /*for (const [lang, friendlyName] of Object.entries(CODE_LANGUAGE_FRIENDLY_NAME_MAP)) {
     options.push([lang, friendlyName])
-  }
+  }*/
 
   return options
 }
