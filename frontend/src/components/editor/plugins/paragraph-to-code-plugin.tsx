@@ -24,6 +24,9 @@ export function ParagraphToCodePlugin() {
               codeNode.append(textNode) // You may want to append TextNodes
               //codeNode.append(node.getFirstChild()?.clone()) // e.g., copy first child
               node.replace(codeNode)
+
+              //set the default language when you clear the editor
+              codeNode.setLanguage("python")
             })
           }
         })
