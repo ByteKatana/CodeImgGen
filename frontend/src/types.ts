@@ -15,3 +15,12 @@ export interface CodeDisplayProps {
   styleDefinitions: string
   backgroundColor: string
 }
+
+export interface EditorSettingsContext {
+  codeLanguage: string
+  setCodeLanguage: (codeLanguage: string) => void
+  codeTheme: string
+  setCodeTheme: (codeTheme: string) => void
+  fileName: string
+  setFileName: (fileName: string) => void
+}
