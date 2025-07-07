@@ -9,9 +9,79 @@ import { $getNodeByKey, $isRangeSelection, $isRootOrShadowRoot, type BaseSelecti
 import { useToolbarContext } from "@/components/editor/context/toolbar-context"
 import { useUpdateToolbarHandler } from "@/components/editor/editor-hooks/use-update-toolbar"
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components//ui/select"
+import { useEditorSettings } from "@/hooks/use-editor-settings.tsx"
+import * as React from "react"
 
 function getCodeLanguageOptions(): [string, string][] {
-  const options: [string, string][] = [["python", "Python"]]
+  const options: [string, string][] = [
+    // **Most popular and commonly grouped by ecosystem/similarity**
+    ["js", "JavaScript"],
+    ["ts", "TypeScript"],
+    ["jsx", "React JSX"],
+    ["tsx", "React TSX"],
+
+    ["py", "Python"],
+    ["java", "Java"],
+    ["kotlin", "Kotlin"],
+    ["scala", "Scala"],
+    ["c", "C"],
+    ["cpp", "C++"],
+    ["cs", "C#"],
+    ["fsharp", "F#"],
+    ["swift", "Swift"],
+    ["objc", "Objective-C"],
+
+    ["go", "Go"],
+    ["rust", "Rust"],
+    ["dart", "Dart"],
+
+    ["php", "PHP"],
+    ["ruby", "Ruby"],
+    ["perl", "Perl"],
+
+    ["elixir", "Elixir"],
+    ["elm", "Elm"],
+
+    ["vb", "Visual Basic"],
+    ["basic", "BASIC"],
+    ["pascal", "Pascal"],
+    ["ada", "Ada"],
+    ["fortran", "Fortran"],
+    ["cobol", "COBOL"],
+
+    // **Markups, configs, tooling and data**
+    ["html", "HTML"],
+    ["xml", "XML"],
+    ["css", "CSS"],
+    ["scss", "SCSS"],
+    ["sass", "SASS"],
+    ["less", "LESS"],
+
+    ["json", "JSON"],
+    ["yaml", "YAML"],
+    ["toml", "TOML"],
+    ["docker", "Docker"],
+    ["gherkin", "Gherkin"],
+
+    // **Scripts and CLI**
+    ["shell", "Shell"],
+    ["bash", "Bash"],
+    ["powershell", "PowerShell"],
+    ["cmake", "CMake"],
+    ["awk", "AWK"],
+
+    // **Other ecosystems**
+    ["arduino", "Arduino"],
+    ["coffeescript", "CoffeeScript"],
+
+    // **Data & query**
+    ["sql", "SQL"],
+    ["r", "R"],
+
+    // **Less common languages**
+    ["haskell", "Haskell"],
+    ["zig", "Zig"]
+  ]
 
   /*for (const [lang, friendlyName] of Object.entries(CODE_LANGUAGE_FRIENDLY_NAME_MAP)) {
     options.push([lang, friendlyName])
@@ -24,7 +94,9 @@ const CODE_LANGUAGE_OPTIONS = getCodeLanguageOptions()
 
 export function CodeLanguageToolbarPlugin() {
   const { activeEditor } = useToolbarContext()
-  const [codeLanguage, setCodeLanguage] = useState<string>("")
+  const [open, setOpen] = React.useState(false)
+  //const [codeLanguage, setCodeLanguage] = useState<string>("")
+  const { codeLanguage, setCodeLanguage } = useEditorSettings()
   const [selectedElementKey, setSelectedElementKey] = useState<string | null>(null)
 
   const $updateToolbar = (selection: BaseSelection) => {
