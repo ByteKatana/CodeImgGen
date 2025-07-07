@@ -79,7 +79,6 @@ def require_auth(f):
 # @require_auth # Uncomment this line if you need authentication
 def gen_code():
     try:
-        print(request.json)
         req_code = request.json.get('code', CODE)
 
         try:
