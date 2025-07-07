@@ -12,6 +12,15 @@ export function GenerateButtonPlugin() {
   const { context, setContext, contextError, setContextError, isLoading, setIsLoading } = useEditorContext()
   const { codeLanguage, codeTheme } = useEditorSettings()
 
+  const convertLanguage = (language: string): string => {
+    switch (language) {
+      case "wasm":
+        return "wast"
+      default:
+        return language
+    }
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     // Get the plaintext (or use editorState.read/serialize for rich text, JSON, or HTML)
     e.preventDefault()
@@ -25,7 +34,7 @@ export function GenerateButtonPlugin() {
       setIsLoading(true)
 
       // Submit to API
-      generateCode(textContent, codeLanguage, codeTheme)
+      generateCode(textContent, convertLanguage(codeLanguage), codeTheme)
         .then((res) => {
           // handle success
           setContext(res)
