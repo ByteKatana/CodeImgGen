@@ -13,6 +13,7 @@ const initialValue = {
         format: "",
         indent: 0,
         type: "code",
+        language: "python",
         version: 1
       }
     ],
