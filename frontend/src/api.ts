@@ -1,9 +1,8 @@
 import { API_CONFIG } from "./config.ts"
 import type { CodeResponse } from "./types.ts"
 
-export async function generateCode(code?: string): Promise<CodeResponse> {
+export async function generateCode(code?: string, code_lang?: string, code_theme?: string): Promise<CodeResponse> {
   try {
-    console.log("baseUrl", API_CONFIG)
     const response = await fetch(`${API_CONFIG.baseUrl}/api/code/python/generate`, {
       method: "POST",
       headers: {
@@ -11,7 +10,7 @@ export async function generateCode(code?: string): Promise<CodeResponse> {
         // 'Authorization': `Bearer ${token}`,
       },
       credentials: API_CONFIG.credentials,
-      body: JSON.stringify({ code })
+      body: JSON.stringify({ code, code_lang, code_theme })
     })
 
     if (!response.ok) {
