@@ -1,6 +1,6 @@
 import React, { type FormEvent, useState } from "react"
 import styled, { createGlobalStyle } from "styled-components"
-import type { CodeDisplayProps, ImageResponse } from "@/types.ts"
+import type { CodeDisplayProps } from "@/types.ts"
 import { Button } from "@/components/ui/button.tsx"
 import { BiCodeBlock, BiDownload, BiImageAdd } from "react-icons/bi"
 import {
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card.tsx"
 import { takeScreenshotOfMyCode } from "@/lib/screenshot.ts"
 import { useEditorContext } from "@/hooks/use-editor-context.tsx"
+import { useEditorSettings } from "@/hooks/use-editor-settings.tsx"
 
 const PygmentsStyles = createGlobalStyle<{ styleDefinitions: string }>`
   ${(props) => props.styleDefinitions}
@@ -32,6 +33,7 @@ const CodeDisplay: React.FC<CodeDisplayProps> = ({ highlightedCode, styleDefinit
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [imgUrl, setImgUrl] = useState<string | null>(null)
   const { setContext } = useEditorContext()
+  const { fileName } = useEditorSettings()
 
   const handleScreenshot = async (e: FormEvent) => {
     e.preventDefault()
@@ -75,7 +77,9 @@ const CodeDisplay: React.FC<CodeDisplayProps> = ({ highlightedCode, styleDefinit
                   type="button"
                   size="lg">
                   <BiDownload />
-                  <a href={imgUrl ?? "http://localhost:5173/error_window.png"} download="screenshot.png">
+                  <a
+                    href={imgUrl ?? "http://localhost:5173/error_window.png"}
+                    download={`screenshot_${fileName.replace(".", "_")}.png`}>
                     Download!
                   </a>
                 </Button>
