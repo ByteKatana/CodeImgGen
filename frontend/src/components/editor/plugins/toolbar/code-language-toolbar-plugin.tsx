@@ -24,23 +24,31 @@ function getCodeLanguageOptions(): [string, string][] {
     ["java", "Java"],
     ["kotlin", "Kotlin"],
     ["scala", "Scala"],
+    ["groovy", "Groovy"],
     ["c", "C"],
     ["cpp", "C++"],
+    ["d", "D"],
     ["cs", "C#"],
+    ["vbnet", "VB.NET"],
     ["fsharp", "F#"],
     ["swift", "Swift"],
     ["objc", "Objective-C"],
+    ["ocaml", "OCaml"],
 
     ["go", "Go"],
     ["rust", "Rust"],
     ["dart", "Dart"],
+    ["crystal", "Crystal"],
 
     ["php", "PHP"],
     ["ruby", "Ruby"],
     ["perl", "Perl"],
+    ["wasm", "WebAssembly"],
 
     ["elixir", "Elixir"],
     ["elm", "Elm"],
+    ["lua", "Lua"],
+    ["julia", "Julia"],
 
     ["vb", "Visual Basic"],
     ["basic", "BASIC"],
@@ -76,6 +84,7 @@ function getCodeLanguageOptions(): [string, string][] {
 
     // **Data & query**
     ["sql", "SQL"],
+    ["graphql", "GraphQL"],
     ["r", "R"],
 
     // **Less common languages**
