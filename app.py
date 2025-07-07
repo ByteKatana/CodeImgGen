@@ -2,7 +2,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
-from pygments.lexers import Python3Lexer
+from pygments.lexers import get_lexer_by_name
+from pygments.styles import get_style_by_name
+from pygments.util import ClassNotFound
+
 from config import CODE, THEME
 import os
 
@@ -76,11 +79,35 @@ def require_auth(f):
 # @require_auth # Uncomment this line if you need authentication
 def gen_code():
     try:
-        formatter = HtmlFormatter(style=THEME)
-        # Get code from request if provided, otherwise use default CODE
-        code_input = request.json.get('code', CODE) if request.is_json else CODE
+        print(request.json)
+        req_code = request.json.get('code', CODE)
 
-        highlighted_code = highlight(code_input, Python3Lexer(), formatter)
+        try:
+            curr_lexer = get_lexer_by_name(request.json.get('code_lang'))
+        except ClassNotFound as e:
+            curr_lexer = get_lexer_by_name("py")
+
+        '''
+        all styles for reference:
+        ['abap', 'algol', 'algol_nu', 'arduino', 'autumn', 'bw', 'borland', 'coffee', 'colorful', 'default', 'dracula', 
+        'emacs', 'friendly_grayscale', 'friendly', 'fruity', 'github-dark', 'gruvbox-dark', 'gruvbox-light', 'igor', 'inkpot', 
+        'lightbulb', 'lilypond', 'lovelace', 'manni', 'material', 'monokai', 'murphy', 'native', 'nord-darker', 'nord', 'one-dark', 
+        'paraiso-dark', 'paraiso-light', 'pastie', 'perldoc', 'rainbow_dash', 'rrt', 'sas', 'solarized-dark', 'solarized-light', 'staroffice', 
+        'stata-dark', 'stata-light', 'tango', 'trac', 'vim', 'vs', 'xcode', 'zenburn']
+        '''
+        try:
+            curr_theme = get_style_by_name(request.json.get('code_theme'))
+        except ClassNotFound as e:
+            curr_theme = get_style_by_name(THEME)
+
+
+
+        formatter = HtmlFormatter(style=curr_theme)
+        # Get code from request if provided, otherwise use default CODE
+        code_input = req_code if request.is_json else CODE
+
+
+        highlighted_code = highlight(code_input, curr_lexer, formatter)
 
         response = {
             "success": True,
