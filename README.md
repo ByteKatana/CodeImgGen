@@ -2,10 +2,10 @@
 Web Based Code Image Generator with Python
 
 # Planned Features ✨
-- [ ] Web UI to generate code image
-- [ ] Highlight style options
+- [X] ~~Web UI to generate code image~~
+- [X] ~~Highlight style options~~
 - [ ] Custom Highlighting styles
-- [ ] Language support for other languages (currently only support Python)
+- [X] ~~Lexer support for popular languages~~ (currently supports 59 languages, more languages will be added later)
 - [ ] Window style options
 - [ ] Sharable Link generation
 - [ ] Social Media Integration
