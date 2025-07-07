@@ -5,10 +5,12 @@ import { BiImageAdd } from "react-icons/bi"
 import { Button } from "@/components/ui/button.tsx"
 import { useEditorContext } from "@/hooks/use-editor-context.tsx"
 import type { FormEvent } from "react"
+import { useEditorSettings } from "@/hooks/use-editor-settings.tsx"
 
 export function GenerateButtonPlugin() {
   const [editor] = useLexicalComposerContext()
   const { context, setContext, contextError, setContextError, isLoading, setIsLoading } = useEditorContext()
+  const { codeLanguage, codeTheme } = useEditorSettings()
 
   const handleSubmit = async (e: FormEvent) => {
     // Get the plaintext (or use editorState.read/serialize for rich text, JSON, or HTML)
@@ -23,7 +25,7 @@ export function GenerateButtonPlugin() {
       setIsLoading(true)
 
       // Submit to API
-      generateCode(textContent)
+      generateCode(textContent, codeLanguage, codeTheme)
         .then((res) => {
           // handle success
           setContext(res)
